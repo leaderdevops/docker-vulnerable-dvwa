@@ -26,13 +26,13 @@ def init(argv):
       opts, args = getopt.getopt(argv,"h:v",["smart_check_url=","smart_check_userid=","smart_check_password=","scan_registry=","scan_repository=","scan_tag=","aws_region=","aws_access_key=","aws_secret=","scan_id="])
    
    except getopt.GetoptError as error:
-      print 'Error Not enough Arguments'
-      print str(error)
+      print('Error Not enough Arguments')
+      print(str(error))
       sys.exit(2)
 
    for opt, arg in opts:
       if opt == '-h':
-         print 'scans.py -i <inputfile> -o <outputfile>'
+         print('scans.py -i <inputfile> -o <outputfile>')
          sys.exit()
       elif opt in ("--smart_check_url"):
          global smart_check_url
