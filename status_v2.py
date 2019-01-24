@@ -1,16 +1,18 @@
 #!/usr/bin/python
-import sys, getopt, os
+import sys
+import getopt
+import os
 import requests
 import urllib3
 from requests.packages.urllib3.exceptions import InsecureRequestWarning
 
 import json
 
-smart_check_url=''
-smart_check_userid=''
-smart_check_password=''
-scan_id=''
-output='status'
+smart_check_url = ''
+smart_check_userid = ''
+smart_check_password = ''
+scan_id = ''
+output = 'status'
 requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 
 
@@ -52,9 +54,9 @@ def get_token(userid,password):
     #print("----- Generating Token ----- "+userid)
     payload = {'user':{'userID': userid, 'password': password}}
     r = requests.post('https://'+smart_check_url+'/api/sessions', json=payload, verify=False)
-    #print(r)
+    #print(r.text)
     z = json.loads(r.text)
-    #print(z['token'])
+    # print(z['token'])
     return z
 
 
@@ -66,50 +68,34 @@ def get_scan(token,id):
     }
     r = requests.get('https://'+smart_check_url+'/api/scans/'+id, headers=headers, verify=False)
     x = json.loads(r.text)
-	
+
+
     if output == "status":
         print(x['status'])
-    else output == "malware" and "malware" in x['findings']:
+    elif output == "malware" and "malware" in x['findings']:
         if(x['findings']['malware'] > 0):
             print('malware_found')
             sys.exit(os.EX_SOFTWARE)
         else:
             print('no-malware')
-    try:
-        if output == "vulnerabilities" and "vulnerabilities" in x['findings']:
-            total_findings = x['findings']['vulnerabilities']['total']
-            if(total_findings['critical'] > 0):
-                print('critical_vulnerability_found')
-                sys.exit(os.EX_SOFTWARE)
-            elif(total_findings['high'] > 0):
-                print('high_vulnerability_found')
-                sys.exit(os.EX_SOFTWARE)
-            elif(total_findings['medium'] > 0):
-                print('medium_vulnerability_found')
-                sys.exit(os.EX_SOFTWARE)
-            elif(total_findings['low'] > 0):
-                print('low_vulnerability_found')
-                sys.exit(os.EX_SOFTWARE)
-            elif(total_findings['negligible'] > 0):
-                print('negligible_vulnerability_found')
-                sys.exit(os.EX_SOFTWARE)
-            elif(total_findings['unknown'] > 0):
-                print('unknown_vulnerability_found')
-                sys.exit(os.EX_SOFTWARE)
-            elif(total_findings['defcon1'] > 0):
-                print('defcon1_vulnerability_found')
-                sys.exit(os.EX_SOFTWARE)
-            else:
-                print('no-malware no-vulnerabilities')
-    except Exception as e:
-            pass
-            print('no-malware no-vulnerabilities')
-			
-    print(r.text)
 
+    elif output == "critical" and "critical" in x['findings']['vulnerabilities']['total']:
+        #print(x['findings']['vulnerabilities']['total']['critical'] + ' Critical Vulnerabilities Found')
+        if(x['findings']['vulnerabilities']['total']['critical'] > 0):
+            print(str(x['findings']['vulnerabilities']['total']['critical']) + ' Critical Vulnerabilities Found!')
+            #print('Critical Vulnerabilities Found')
+            sys.exit(os.EX_SOFTWARE)
+        else:
+            print('No Critical Vulnerabilities')
+
+    elif output == "critical" and "critical" not in x['findings']['vulnerabilities']['total']:
+        print('No Critical Vulnerabilities Found')
+
+    else:
+        print('Overall Status')
+        print(r.text)
 
 init(sys.argv[1:])
-#print(smart_check_userid)
-token = get_token(smart_check_userid,smart_check_password)
-#print (token['token'])
-get_scan(token['token'],scan_id)
+token = get_token(smart_check_userid, smart_check_password)
+#print(token)
+get_scan(token['token'], scan_id)
