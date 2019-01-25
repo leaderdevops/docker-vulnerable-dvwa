@@ -67,6 +67,7 @@ def get_scan(token,id):
         'content-type': "application/json",
     }
     r = requests.get('https://'+smart_check_url+'/api/scans/'+id, headers=headers, verify=False)
+    print(type(r.text))
     y = json.dumps(r.json())
     x = json.loads(y)
 
