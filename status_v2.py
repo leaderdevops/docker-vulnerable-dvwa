@@ -66,8 +66,8 @@ def get_scan(token,id):
         'authorization': "Bearer " + token,
         'content-type': "application/json",
     }
-    r = requests.get('https://'+smart_check_url+'/api/scans/'+id, headers=headers, verify=False)
-    print(type(r.text))
+    r = requests.get('https://'+smart_check_url+'/api/scans/'+id, headers=headers, verify=False).json()
+    print(type(r))
     y = json.dumps(r.json())
     x = json.loads(y)
 
