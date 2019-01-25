@@ -33,22 +33,18 @@ def init(argv):
       elif opt in ("--smart_check_url"):
          global smart_check_url
          smart_check_url = arg
-         print("status smartcheck url:" + smart_check_url)
 
       elif opt in ("--smart_check_userid"):
-         global smart_check_userid
-         smart_check_userid = arg
-         print("status smartcheck User:" + smart_check_userid)
+        global smart_check_userid
+        smart_check_userid = arg
 
       elif opt in ("--smart_check_password"):
-         global smart_check_password
-         smart_check_password = arg
-         print("status smartcheck pass:" + smart_check_password)
-         
+        global smart_check_password
+        smart_check_password = arg
+
       elif opt in ("--scan_id"):
          global scan_id
          scan_id = arg
-         print("status scan id:" + scan_id)
 
       elif opt in ("--output"):
          global output
@@ -58,7 +54,7 @@ def get_token(userid,password):
     #print("----- Generating Token ----- "+userid)
     payload = {'user':{'userID': userid, 'password': password}}
     r = requests.post('https://'+smart_check_url+'/api/sessions', json=payload, verify=False)
-    print(r.text)
+    #print(r.text)
     z = json.loads(r.text)
     # print(z['token'])
     return z
