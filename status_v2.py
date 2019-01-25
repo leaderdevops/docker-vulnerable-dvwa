@@ -66,12 +66,14 @@ def get_scan(token,id):
         'authorization': "Bearer " + token,
         'content-type': "application/json",
     }
-    r = requests.get('https://'+smart_check_url+'/api/scans/'+id, headers=headers, verify=False)
-    print(type(r))
-    #y = json.dumps(r.json())
-    #x = json.loads(y)
-    with open("data_file.json", "r") as read_file:
-      x = json.load(read_file)
+    try:
+      r = requests.get('https://'+smart_check_url+'/api/scans/'+id, headers=headers, verify=False)
+      y = json.dumps(r.text)
+      print(type(y))
+      x = json.loads(r.text)
+    except Exception as ex:
+      print(ex)
+      
     if output == "status":
         print(x['status'])
 
