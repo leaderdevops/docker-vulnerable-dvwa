@@ -69,31 +69,50 @@ def get_scan(token,id):
     r = requests.get('https://'+smart_check_url+'/api/scans/'+id, headers=headers, verify=False)
     x = json.loads(r.text)
 
-
     if output == "status":
         print(x['status'])
-    elif output == "malware" and "malware" in x['findings']:
-        if(x['findings']['malware'] > 0):
-            print('malware_found')
-            sys.exit(os.EX_SOFTWARE)
-        else:
-            print('no-malware')
 
-    elif output == "critical" and "critical" in x['findings']['vulnerabilities']['total']:
-        #print(x['findings']['vulnerabilities']['total']['critical'] + ' Critical Vulnerabilities Found')
-        if(x['findings']['vulnerabilities']['total']['critical'] > 0):
-            print(str(x['findings']['vulnerabilities']['total']['critical']) + ' Critical Vulnerabilities Found!')
-            print('Critical Vulnerabilities Found')
-            sys.exit(os.EX_SOFTWARE)
-        else:
-            print('No Critical Vulnerabilities')
+        if output == "malware" and "malware" in x['findings']:
+            if(x['findings']['malware'] > 0):
+                print('malware_found')
+                #sys.exit(os.EX_SOFTWARE)
+            else:
+                print('no-malware')
 
-    elif output == "critical" and "critical" not in x['findings']['vulnerabilities']['total']:
-        print('No Critical Vulnerabilities Found')
+        try:
+            if(x['findings']['contents']['total']['high'] > 0):
+                print(str(x['findings']['contents']['total']['high']) + ' Secret stored found in image!')
+                    #print('Critical Vulnerabilities Found')
+                    #sys.exit(os.EX_SOFTWARE)
+            else:
+                print('No Secrets found in image')
+        except Exception as e:
+            pass
+
+        if output == "critical" or "high" in x['findings']['vulnerabilities']['total']:
+            try:
+                if(x['findings']['vulnerabilities']['total']['high'] > 0):
+                    print(str(x['findings']['vulnerabilities']['total']['high']) + ' High Vulnerabilities Found!')
+                    #print('Critical Vulnerabilities Found')
+                    #sys.exit(os.EX_SOFTWARE)
+                else:
+                    print('No High Vulnerabilities')
+            except Exception as e:
+                pass
+
+            try:
+                if (x['findings']['vulnerabilities']['total']['critical'] > 0):
+                    print(str(x['findings']['vulnerabilities']['total']['critical']) + ' Critical Vulnerabilities Found!')
+                # print('Critical Vulnerabilities Found')
+                #sys.exit(os.EX_SOFTWARE)
+                else:
+                    print('No Critical Vulnerabilities')
+            except Exception as e:
+                pass
 
     else:
         print('Overall Status')
-        print(r.text)
+        #print(r.text)
 
 init(sys.argv[1:])
 token = get_token(smart_check_userid, smart_check_password)
