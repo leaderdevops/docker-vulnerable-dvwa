@@ -23,7 +23,7 @@ requests.packages.urllib3.disable_warnings(InsecureRequestWarning)
 def init(argv): 
    
    try:
-      opts, args = getopt.getopt(argv,"h:v",["smart_check_url=","smart_check_userid=","smart_check_password=","scan_registry=","scan_repository=","scan_tag=","aws_region=","aws_access_key=","aws_secret=","scan_id="])
+      opts, args = getopt.getopt(argv,"h:v",["smart_check_url=","smart_check_userid=","smart_check_password=","scan_registry=","scan_repository=","scan_tag=","aws_region=","aws_id=","aws_secret=","scan_id="])
    
    except getopt.GetoptError as error:
       print('Error Not enough Arguments')
