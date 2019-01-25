@@ -55,7 +55,9 @@ def get_token(userid,password):
     payload = {'user':{'userID': userid, 'password': password}}
     r = requests.post('https://'+smart_check_url+'/api/sessions', json=payload, verify=False)
     #print(r.text)
-    z = json.loads(r.text)
+    with open("data_file.json", "r") as read_file:
+      z = json.load(read_file)
+    #z = json.loads(r.text)
     # print(z['token'])
     return z
 
