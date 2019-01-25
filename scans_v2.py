@@ -81,7 +81,6 @@ def init(argv):
       elif opt in ("--scan_name"):
          global scan_name
          scan_name = arg
-       
          
       elif opt in ("--scan_id"):
          global scan_id
@@ -127,7 +126,7 @@ def generate_request(token):
     payload['source']['repository']=scan_repository
     payload['source']['tag']=scan_tag
     payload['source']['credentials']['aws']['region']=aws_region
-    payload['source']['credentials']['aws']['accessKeyID']=aws_access_key
+    payload['source']['credentials']['aws']['accessKeyID']=aws_id
     payload['source']['credentials']['aws']['secretAccessKey']=aws_secret
     #print(payload)
     headers = {
