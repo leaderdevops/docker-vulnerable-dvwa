@@ -83,7 +83,7 @@ def get_scan(token,id):
         #print(x['findings']['vulnerabilities']['total']['critical'] + ' Critical Vulnerabilities Found')
         if(x['findings']['vulnerabilities']['total']['critical'] > 0):
             print(str(x['findings']['vulnerabilities']['total']['critical']) + ' Critical Vulnerabilities Found!')
-            #print('Critical Vulnerabilities Found')
+            print('Critical Vulnerabilities Found')
             sys.exit(os.EX_SOFTWARE)
         else:
             print('No Critical Vulnerabilities')
