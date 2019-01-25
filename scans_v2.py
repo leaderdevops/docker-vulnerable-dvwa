@@ -81,7 +81,7 @@ def init(argv):
       elif opt in ("--scan_name"):
          global scan_name
          scan_name = arg
-         print(scan_name)
+       
          
       elif opt in ("--scan_id"):
          global scan_id
