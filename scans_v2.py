@@ -136,8 +136,8 @@ def generate_request(token):
     r = requests.post('https://'+smart_check_url+'/api/scans', json=payload, headers=headers, verify=False)
     #print(r)
     x = json.loads(r.text)
-    #print(x)
-    #print(x['id'])
+    print(x)
+    print(x['id'])
     return x['id']
 
 init(sys.argv[1:])
