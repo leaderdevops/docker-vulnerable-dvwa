@@ -33,22 +33,22 @@ def init(argv):
       elif opt in ("--smart_check_url"):
          global smart_check_url
          smart_check_url = arg
-         print("DSSC URL: " + smart_check_url)
+         print("PY DSSC URL: " + smart_check_url)
          
       elif opt in ("--smart_check_userid"):
         global smart_check_userid
         smart_check_userid = arg
-        print("DSSC Usr: " + smart_check_userid)
+        print("PY DSSC Usr: " + smart_check_userid)
 
       elif opt in ("--smart_check_password"):
         global smart_check_password
         smart_check_password = arg
-        print("DSSC Password: " + smart_check_password)
+        print("PY DSSC Password: " + smart_check_password)
 
       elif opt in ("--scan_id"):
          global scan_id
          scan_id = arg
-         print("DSSC scan id: " + scan_id)
+         print("PY DSSC scan id: " + scan_id)
 
       elif opt in ("--output"):
          global output
@@ -70,7 +70,6 @@ def get_scan(token,id):
         'authorization': "Bearer " + token,
         'content-type': "application/json",
     }
-    
     r = requests.get('https://'+smart_check_url+'/api/scans/'+id, headers=headers, verify=False)
     print(r.text)
     x = json.loads(r.text)
