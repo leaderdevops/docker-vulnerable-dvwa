@@ -71,7 +71,6 @@ def get_scan(token,id):
         'content-type': "application/json",
     }
     r = requests.get('https://'+smart_check_url+'/api/scans/'+id, headers=headers, verify=False)
-    print(r.text)
     x = json.loads(r.text)
     
     if output == "status":
