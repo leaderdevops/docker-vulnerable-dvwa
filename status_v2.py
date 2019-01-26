@@ -32,23 +32,19 @@ def init(argv):
          sys.exit()
       elif opt in ("--smart_check_url"):
          global smart_check_url
-         smart_check_url = arg
-         print("PY DSSC URL: " + smart_check_url)
+         smart_check_url = arg 
          
       elif opt in ("--smart_check_userid"):
         global smart_check_userid
         smart_check_userid = arg
-        print("PY DSSC Usr: " + smart_check_userid)
 
       elif opt in ("--smart_check_password"):
         global smart_check_password
         smart_check_password = arg
-        print("PY DSSC Password: " + smart_check_password)
 
       elif opt in ("--scan_id"):
          global scan_id
          scan_id = arg
-         print("PY DSSC scan id: " + scan_id)
 
       elif opt in ("--output"):
          global output
