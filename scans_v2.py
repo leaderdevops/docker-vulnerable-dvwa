@@ -37,12 +37,12 @@ def init(argv):
       elif opt in ("--smart_check_url"):
          global smart_check_url
          smart_check_url = arg
-         print(smart_check_url)
+         
 
       elif opt in ("--smart_check_userid"):
         global smart_check_userid
         smart_check_userid = arg
-        print(smart_check_userid)
+        
          
       elif opt in ("--smart_check_password"):
         global smart_check_password
@@ -51,32 +51,32 @@ def init(argv):
       elif opt in ("--scan_registry"):
          global scan_registry
          scan_registry = arg
-         print(scan_registry)
+         
 
       elif opt in ("--scan_repository"):
          global scan_repository
          scan_repository = arg
-         print(scan_repository)
+         
 
       elif opt in ("--scan_tag"):
          global scan_tag
          scan_tag = arg
-         print(scan_tag)
+         
          
       elif opt in ("--aws_region"):
          global aws_region
          aws_region = arg
-         print(aws_region)
+         
          
       elif opt in ("--aws_id"):
          global aws_id
          aws_id = arg
-         print(aws_id)
+         
 
       elif opt in ("--aws_secret"):
          global aws_secret
          aws_secret = arg
-         print(aws_secret)
+         
          
       elif opt in ("--scan_name"):
          global scan_name
@@ -106,7 +106,7 @@ def get_scan(token,id):
     r = requests.get('https://'+smart_check_url+'/api/scans/'+id, headers=headers, verify=False)
     
     x = json.loads(r.text)
-    print(x['id'])
+    #print(x['id'])
 
 
 def generate_request(token):
@@ -136,7 +136,7 @@ def generate_request(token):
     r = requests.post('https://'+smart_check_url+'/api/scans', json=payload, headers=headers, verify=False)
     #print(r)
     x = json.loads(r.text)
-    print(x)
+    #print(x)
     print(x['id'])
     return x['id']
 
