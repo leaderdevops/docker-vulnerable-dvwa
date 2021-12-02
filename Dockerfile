@@ -1,4 +1,4 @@
-FROM debian:9.2
+FROM debian:stretch
 
 LABEL maintainer "opsxcq@strm.sh"
 
